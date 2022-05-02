@@ -14,7 +14,7 @@
     </parent>
     <groupId>com.caffadras</groupId>
     <artifactId>spring-my-pet-clinic</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>spring-my-pet-clinic</name>
     <description>spring-my-pet-clinic</description>
     <properties>
@@ -73,6 +73,6 @@
 
     <scm>
         <developerConnection>scm:git:https://github.com/Caffadras/spring-my-pet-clinic.git</developerConnection>
-      <tag>spring-my-pet-clinic-0.0.1</tag>
+      <tag>HEAD</tag>
   </scm>
 </project>
