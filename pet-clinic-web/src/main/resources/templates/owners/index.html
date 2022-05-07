@@ -5,6 +5,25 @@
     <title>Owners Index Page</title>
 </head>
 <body>
-    <h1 th:text="'Owners Index Page'">Owners Index Page</h1>
+    <!--/*@thymesVar id="owner" type="com.caffadras.springmypetclinic.model.Owner"*/-->
+    <h1 th:text="'List of owners: '">Owners Index Page</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="owner : ${owners}">
+                <td th:text="${owner.getId()}"></td>
+                <td th:text="${owner.getFirstName()}"></td>
+                <td th:text="${owner.getLastName()}"></td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>
