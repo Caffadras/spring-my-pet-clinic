@@ -4,7 +4,7 @@ import com.caffadras.springmypetclinic.model.BaseEntity;
 
 import java.util.*;
 
-public abstract class AbstractMapService<T extends BaseEntity, ID extends Number & Comparable<? super ID>>  {
+public abstract class AbstractMapService<T extends BaseEntity, ID extends Number & Comparable<ID>>  {
     protected Map<ID, T> map = new HashMap<>();
 
     public Set<T> findAll() {
@@ -16,8 +16,10 @@ public abstract class AbstractMapService<T extends BaseEntity, ID extends Number
     }
 
     public T save(T object) {
-        object.setId((Long) nextId());
-        map.put((ID) object.getId(), object);
+        if(object != null){
+            object.setId((Long) nextId());
+            map.put((ID) object.getId(), object);
+        }
         return object;
     }
 
