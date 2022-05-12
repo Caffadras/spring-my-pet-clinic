@@ -32,8 +32,8 @@ public abstract class AbstractMapService<T extends BaseEntity, ID extends Number
     }
 
     protected Number nextId(){
-        if (map.isEmpty()) return 1;
+        if (map.isEmpty()) return 1L;
 
-        return (Long) Collections.max(map.keySet()) + 1;
+        return (Long) Collections.max(map.keySet()) + 1L;
     }
 }
