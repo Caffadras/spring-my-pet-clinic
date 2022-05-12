@@ -1,11 +1,10 @@
 package com.caffadras.springmypetclinic.services.map;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import com.caffadras.springmypetclinic.model.BaseEntity;
 
-public abstract class AbstractMapService<T, ID>  {
+import java.util.*;
+
+public abstract class AbstractMapService<T extends BaseEntity, ID extends Number & Comparable<? super ID>>  {
     protected Map<ID, T> map = new HashMap<>();
 
     public Set<T> findAll() {
@@ -16,8 +15,9 @@ public abstract class AbstractMapService<T, ID>  {
         return map.get(id);
     }
 
-    public T save(ID id, T object) {
-        map.put(id, object);
+    public T save(T object) {
+        object.setId((Long) nextId());
+        map.put((ID) object.getId(), object);
         return object;
     }
 
@@ -27,5 +27,11 @@ public abstract class AbstractMapService<T, ID>  {
 
     public void deleteById(ID id) {
         map.remove(id);
+    }
+
+    protected Number nextId(){
+        if (map.isEmpty()) return 1;
+
+        return (Long) Collections.max(map.keySet()) + 1;
     }
 }

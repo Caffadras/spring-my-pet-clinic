@@ -16,8 +16,4 @@ public class OwnerMapService extends AbstractMapService<Owner, Long> implements 
                 .orElse(null);
     }
 
-    @Override
-    public Owner save(Owner object) {
-        return super.save(object.getId(), object);
-    }
 }
