@@ -1,5 +1,10 @@
 package com.caffadras.springmypetclinic.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "specialities")
 public class Speciality extends BaseEntity{
     private String description;
 
