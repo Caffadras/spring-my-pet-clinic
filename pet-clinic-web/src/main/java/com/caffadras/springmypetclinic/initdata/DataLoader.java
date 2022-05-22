@@ -3,6 +3,7 @@ package com.caffadras.springmypetclinic.initdata;
 import com.caffadras.springmypetclinic.model.*;
 import com.caffadras.springmypetclinic.services.OwnerService;
 import com.caffadras.springmypetclinic.services.VetService;
+import com.caffadras.springmypetclinic.services.VisitService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -12,10 +13,12 @@ import java.time.LocalDate;
 public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
+    private final VisitService visitService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -29,6 +32,7 @@ public class DataLoader implements CommandLineRunner {
 
         PetType dogPetType = new PetType();
         dogPetType.setName("Dog");
+
 
         Pet pet1 = new Pet();
         pet1.setName("Pet1");
@@ -54,6 +58,13 @@ public class DataLoader implements CommandLineRunner {
         owner2.getPets().add(pet2);
         pet2.setOwner(owner2);
         ownerService.save(owner2);
+
+
+        Visit firstVisit = new Visit();
+        firstVisit.setDate(LocalDate.now());
+        firstVisit.setDescription("Our first visit");
+        firstVisit.setPet(pet1);
+        visitService.save(firstVisit);
 
     }
 
