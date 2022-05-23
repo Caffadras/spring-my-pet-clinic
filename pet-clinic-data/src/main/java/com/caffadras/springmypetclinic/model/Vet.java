@@ -1,12 +1,16 @@
 package com.caffadras.springmypetclinic.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "vets")
+@Getter
+@Setter
 public class Vet extends Person{
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -15,11 +19,4 @@ public class Vet extends Person{
     )
     private Set<Speciality> specialities = new HashSet<>();
 
-    public Set<Speciality> getSpecialities() {
-        return specialities;
-    }
-
-    public void setSpecialities(Set<Speciality> specialities) {
-        this.specialities = specialities;
-    }
 }
