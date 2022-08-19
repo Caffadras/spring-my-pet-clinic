@@ -1,9 +1,7 @@
 package com.caffadras.springmypetclinic.initdata;
 
 import com.caffadras.springmypetclinic.model.*;
-import com.caffadras.springmypetclinic.services.OwnerService;
-import com.caffadras.springmypetclinic.services.VetService;
-import com.caffadras.springmypetclinic.services.VisitService;
+import com.caffadras.springmypetclinic.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -14,11 +12,15 @@ public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
     private final VisitService visitService;
+    private final PetTypeService petTypeService;
+    private final SpecialityService specialityService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, VisitService visitService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, VisitService visitService, PetTypeService petTypeService, SpecialityService specialityService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.visitService = visitService;
+        this.petTypeService = petTypeService;
+        this.specialityService = specialityService;
     }
 
     @Override
@@ -33,6 +35,8 @@ public class DataLoader implements CommandLineRunner {
         PetType dogPetType = new PetType();
         dogPetType.setName("Dog");
 
+        petTypeService.save(catPetType);
+        petTypeService.save(dogPetType);
 
         Pet pet1 = new Pet();
         pet1.setName("Pet1");
@@ -48,6 +52,9 @@ public class DataLoader implements CommandLineRunner {
         Owner owner1 = new Owner();
         owner1.setFirstName("Jonathan");
         owner1.setLastName("Maestro");
+        owner1.setAddress("address1");
+        owner1.setCity("city1");
+        owner1.setTelephone("phone1");
         owner1.getPets().add(pet1);
         pet1.setOwner(owner1);
         ownerService.save(owner1);
@@ -55,6 +62,9 @@ public class DataLoader implements CommandLineRunner {
         Owner owner2 = new Owner();
         owner2.setFirstName("Daniel");
         owner2.setLastName("Ballocks");
+        owner2.setAddress("address2");
+        owner2.setCity("city2");
+        owner2.setTelephone("phone2");
         owner2.getPets().add(pet2);
         pet2.setOwner(owner2);
         ownerService.save(owner2);
@@ -74,6 +84,9 @@ public class DataLoader implements CommandLineRunner {
 
         Speciality janitorSpeciality = new Speciality();
         janitorSpeciality.setDescription("Janitor");
+
+        specialityService.save(surgeonSpeciality);
+        specialityService.save(janitorSpeciality);
 
         Vet vet1 = new Vet();
         vet1.setFirstName("Vet");

@@ -19,4 +19,10 @@ public class Owner extends Person {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Pet> pets = new HashSet<>();
 
+    private String city;
+
+    private String telephone;
+
+    private String address;
+
 }
