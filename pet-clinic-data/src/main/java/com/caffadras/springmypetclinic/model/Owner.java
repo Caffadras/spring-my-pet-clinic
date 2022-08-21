@@ -25,4 +25,9 @@ public class Owner extends Person {
 
     private String address;
 
+    public void addPet(Pet pet){
+        getPets().add(pet);
+        pet.setOwner(this);
+    }
+
 }
