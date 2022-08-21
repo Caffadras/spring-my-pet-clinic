@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -29,4 +30,11 @@ public class Pet extends BaseEntity{
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
+    public void addVisit(Visit visit){
+        if (getVisits() == null){
+            setVisits(new HashSet<>());
+        }
+        getVisits().add(visit);
+        visit.setPet(this);
+    }
 }
