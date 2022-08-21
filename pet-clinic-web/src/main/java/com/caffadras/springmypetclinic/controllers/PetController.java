@@ -57,4 +57,17 @@ public class PetController {
         petService.save(pet);
         return "redirect:/owners/" + owner.getId();
     }
+
+    @GetMapping("/pets/{petId}/edit")
+    public String initUpdateForm(@PathVariable Long petId, Model model){
+        model.addAttribute("pet", petService.findById(petId));
+        return "pets/createOrUpdatePetForm";
+    }
+
+    @PostMapping("/pets/{petId}/edit")
+    public String processUpdateForm(Pet pet, Owner owner){
+        pet.setOwner(owner);
+        petService.save(pet);
+        return "redirect:/owners/"+owner.getId();
+    }
 }

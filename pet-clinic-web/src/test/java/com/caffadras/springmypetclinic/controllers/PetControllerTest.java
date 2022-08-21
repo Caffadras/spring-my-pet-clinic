@@ -1,6 +1,7 @@
 package com.caffadras.springmypetclinic.controllers;
 
 import com.caffadras.springmypetclinic.model.Owner;
+import com.caffadras.springmypetclinic.model.Pet;
 import com.caffadras.springmypetclinic.model.PetType;
 import com.caffadras.springmypetclinic.services.OwnerService;
 import com.caffadras.springmypetclinic.services.PetService;
@@ -37,10 +38,15 @@ class PetControllerTest {
 
     Owner owner;
     Set<PetType> petTypes;
+
+    Pet pet;
     @BeforeEach
     void setUp() {
         owner = new Owner();
         owner.setId(1L);
+
+        pet = new Pet();
+        pet.setId(1L);
 
         PetType catPetType = new PetType();
         catPetType.setName("Cat");
@@ -71,6 +77,31 @@ class PetControllerTest {
         doReturn(owner).when(ownerService).findById(anyLong());
 
         mockMvc.perform(post("/owners/1/pets/new"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/owners/1"));
+
+        verify(petService, times(1)).save(any());
+    }
+
+    @Test
+    void initUpdateForm() throws Exception{
+        doReturn(petTypes).when(petTypeService).findAll();
+        doReturn(owner).when(ownerService).findById(anyLong());
+        doReturn(pet).when(petService).findById(anyLong());
+
+        mockMvc.perform(get("/owners/1/pets/1/edit"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("pets/createOrUpdatePetForm"))
+                .andExpect(model().attributeExists("owner"))
+                .andExpect(model().attributeExists("pet"));
+    }
+
+    @Test
+    void processUpdateForm() throws Exception{
+        doReturn(petTypes).when(petTypeService).findAll();
+        doReturn(owner).when(ownerService).findById(anyLong());
+
+        mockMvc.perform(post("/owners/1/pets/1/edit"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/owners/1"));
 
